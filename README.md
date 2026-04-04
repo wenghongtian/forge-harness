@@ -36,24 +36,39 @@ curl -fsSL https://raw.githubusercontent.com/wenghongtian/forge-harness/main/ins
 
 ```
 my-project/
-├── CLAUDE.md              # 项目级说明
+├── CLAUDE.md                    # 项目级说明
 ├── .claude/
-│   ├── settings.json      # 钩子配置
-│   └── rules/             # 编码规则
-├── forge/                 # Forge 框架文件
-│   ├── commands/          # 斜杠指令
-│   ├── skills/            # 领域知识
-│   ├── agents/            # 智能体定义
-│   ├── hooks/             # 自动化钩子
-│   └── stacks/            # 技术栈配置
-├── openspec/              # 规格文档（OpenSpec）
-│   ├── specs/             # 当前系统规格
-│   ├── changes/           # 进行中的变更
-│   └── schemas/           # forge-lifecycle schema
-├── frontend/              # 前端应用（实现后生成）
-├── backend/               # 后端应用（实现后生成）
-└── contracts/api/         # API 契约
+│   ├── commands/                # 斜杠指令（/genesis, /iterate 等）
+│   │   ├── genesis.md
+│   │   ├── iterate.md
+│   │   ├── hotfix.md
+│   │   ├── recover.md
+│   │   ├── design-review.md
+│   │   ├── tech-review.md
+│   │   └── accept.md
+│   ├── skills/                  # 领域知识（供智能体引用）
+│   │   ├── product-design/
+│   │   ├── ui-ux/
+│   │   ├── api-design/
+│   │   ├── testing-strategy/
+│   │   └── openspec-workflow/
+│   ├── rules/                   # 编码规则
+│   └── settings.json            # 钩子配置
+├── forge/                       # 框架支撑文件
+│   ├── agents/                  # 智能体定义
+│   ├── hooks/                   # 钩子脚本
+│   ├── stacks/                  # 技术栈预设
+│   └── schemas/                 # OpenSpec 自定义 schema
+├── openspec/                    # 规格文档（OpenSpec）
+│   ├── specs/                   # 当前系统规格
+│   ├── changes/                 # 进行中的变更
+│   └── schemas/                 # forge-lifecycle schema
+├── frontend/                    # 前端应用（实现后生成）
+├── backend/                     # 后端应用（实现后生成）
+└── contracts/api/               # API 契约
 ```
+
+安装后在 Claude Code 中直接输入 `/genesis` 即可开始。
 
 ## 使用指南
 

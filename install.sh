@@ -138,23 +138,47 @@ if [ "$FORGE_SOURCE" = "remote" ]; then
   download_forge
 fi
 
-# ── 第一步：复制 forge 框架文件到项目 ────────────────────
+# ── 第一步：安装框架文件 ─────────────────────────────────
+#
+# Claude Code 的约定：
+#   .claude/commands/*.md  → 用户可用 /指令名 调用
+#   .claude/skills/*/SKILL.md → 领域知识，智能体可引用
+#   forge/ → 框架支撑文件（agents、hooks、stacks、schemas）
 
 echo ""
-echo "[1/5] 安装 Forge 框架文件..."
+echo "[1/5] 安装框架文件..."
 
+# 指令 → .claude/commands/（Claude Code 斜杠指令）
+mkdir -p .claude/commands
+if ls "$FORGE_DIR/commands/"*.md &>/dev/null; then
+  for cmd in "$FORGE_DIR/commands/"*.md; do
+    cp "$cmd" .claude/commands/
+  done
+fi
+echo "  已安装指令到 .claude/commands/"
+
+# 技能 → .claude/skills/（Claude Code 领域知识）
+mkdir -p .claude/skills
+if [ -d "$FORGE_DIR/skills" ]; then
+  for skill_dir in "$FORGE_DIR/skills/"*/; do
+    skill_name=$(basename "$skill_dir")
+    mkdir -p ".claude/skills/$skill_name"
+    cp -r "$skill_dir"* ".claude/skills/$skill_name/"
+  done
+fi
+echo "  已安装技能到 .claude/skills/"
+
+# 支撑文件 → forge/（agents、hooks、stacks、schemas）
 if [ ! -d "forge" ]; then
-  mkdir -p forge/{commands,skills,agents,hooks,stacks,schemas}
-  cp -r "$FORGE_DIR/commands/"* forge/commands/
-  cp -r "$FORGE_DIR/skills/"* forge/skills/
+  mkdir -p forge/{agents,hooks,stacks,schemas}
   cp -r "$FORGE_DIR/agents/"* forge/agents/
   cp -r "$FORGE_DIR/hooks/"* forge/hooks/
   cp -r "$FORGE_DIR/stacks/"* forge/stacks/
   [ -d "$FORGE_DIR/schemas" ] && cp -r "$FORGE_DIR/schemas/"* forge/schemas/
-  cp "$FORGE_DIR/CLAUDE.md" forge/CLAUDE.md
-  echo "  已安装 forge/ 框架文件"
+  [ -f "$FORGE_DIR/CLAUDE.md" ] && cp "$FORGE_DIR/CLAUDE.md" forge/CLAUDE.md
+  echo "  已安装支撑文件到 forge/"
 else
-  echo "  forge/ 已存在，跳过。如需更新请先删除 forge/ 目录。"
+  echo "  forge/ 已存在，跳过。"
 fi
 
 # ── 第二步：初始化 OpenSpec ──────────────────────────────
@@ -218,36 +242,21 @@ fi
 
 echo "[4/5] 安装 Claude Code 规则和钩子..."
 
-mkdir -p .claude/rules
-
 # 复制规则
+mkdir -p .claude/rules
 if ls "$FORGE_DIR/.claude/rules/"*.md &>/dev/null; then
   for rule in "$FORGE_DIR/.claude/rules/"*.md; do
     cp "$rule" .claude/rules/
   done
 fi
-# 如果远程模式下 FORGE_DIR 已被清理，从已安装的 forge/ 中补充
-if [ ! "$(ls -A .claude/rules/ 2>/dev/null)" ]; then
-  if ls forge/.claude/rules/*.md &>/dev/null; then
-    for rule in forge/.claude/rules/*.md; do
-      cp "$rule" .claude/rules/
-    done
-  fi
-fi
 echo "  已安装规则：$(ls .claude/rules/*.md 2>/dev/null | wc -l | tr -d ' ') 个"
 
-# 安装 settings.json
+# 安装 settings.json（钩子配置）
 if [ -f ".claude/settings.json" ]; then
   echo "  .claude/settings.json 已存在。"
-  echo "  请手动将 forge/.claude/settings.json 中的 hooks 配置合并进去。"
+  echo "  请手动将以下钩子配置合并进去（详见 forge/hooks/）。"
 else
-  if [ -f "$FORGE_DIR/.claude/settings.json" ]; then
-    cp "$FORGE_DIR/.claude/settings.json" .claude/settings.json
-  elif [ -f "forge/.claude/settings.json" ]; then
-    cp forge/.claude/settings.json .claude/settings.json
-  else
-    # 内联生成 settings.json
-    cat > .claude/settings.json << 'SETTINGS_EOF'
+  cat > .claude/settings.json << 'SETTINGS_EOF'
 {
   "hooks": {
     "PreToolUse": [
@@ -277,7 +286,6 @@ else
   }
 }
 SETTINGS_EOF
-  fi
   echo "  已安装 .claude/settings.json（含钩子配置）"
 fi
 
@@ -347,13 +355,16 @@ echo "  Forge 安装完成！"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "  已安装："
-echo "  ✓ Forge 框架文件（forge/）"
+echo "  ✓ 斜杠指令（.claude/commands/）— /genesis, /iterate, /hotfix 等"
+echo "  ✓ 领域知识（.claude/skills/）— 产品设计、UI/UX、API、测试等"
+echo "  ✓ 编码规则（.claude/rules/）— 架构、前端、后端、第一性原理"
+echo "  ✓ 钩子配置（.claude/settings.json）— 审批阻塞、文档同步等"
+echo "  ✓ 支撑文件（forge/）— 智能体、钩子脚本、技术栈预设"
 echo "  ✓ OpenSpec + forge-lifecycle schema"
-echo "  ✓ Claude Code 规则（.claude/rules/）"
-echo "  ✓ 钩子配置（.claude/settings.json）"
-echo "  ✓ 项目目录结构"
+echo "  ✓ 项目目录结构（contracts/、docs/）"
 echo ""
 echo "  后续步骤："
-echo "  使用 /genesis 从零构建产品"
-echo "  使用 /iterate 添加功能"
+echo "  在 Claude Code 中输入 /genesis 从零构建产品"
+echo "  输入 /iterate 添加功能"
+echo "  输入 /hotfix 修复 Bug"
 echo ""
