@@ -152,25 +152,19 @@ if [ ! -f ".claude/settings.json" ]; then
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "command": "node .claude/hooks/human-gate.js",
-        "description": "在审批关卡阶段，未经批准时阻塞提交"
-      },
-      {
-        "matcher": "Bash",
-        "command": "node .claude/hooks/branch-doc-check.js",
-        "description": "确保功能分支有对应的 OpenSpec 变更文件夹"
-      },
-      {
-        "matcher": "Bash",
-        "command": "node .claude/hooks/pre-commit-quality.js",
-        "description": "git commit 前的质量检查"
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/human-gate.js" },
+          { "type": "command", "command": "node .claude/hooks/branch-doc-check.js" },
+          { "type": "command", "command": "node .claude/hooks/pre-commit-quality.js" }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
-        "command": "node .claude/hooks/doc-sync.js",
-        "description": "代码变更缺少规格追踪时发出警告"
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/doc-sync.js" }
+        ]
       }
     ]
   }
