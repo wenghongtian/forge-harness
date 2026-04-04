@@ -132,7 +132,7 @@ npx openspec instructions design --change genesis-<产品名>
 
 1. 读取技术栈配置：
 ```bash
-cat forge/stacks/<技术栈名>.yaml
+cat .claude/stacks/<技术栈名>.yaml
 ```
 
 2. 按照技术栈配置的 `init_commands` 初始化前后端项目

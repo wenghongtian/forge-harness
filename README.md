@@ -53,12 +53,10 @@ my-project/
 │   │   ├── testing-strategy/
 │   │   └── openspec-workflow/
 │   ├── rules/                   # 编码规则
-│   └── settings.json            # 钩子配置
-├── forge/                       # 框架支撑文件
 │   ├── agents/                  # 智能体定义
 │   ├── hooks/                   # 钩子脚本
 │   ├── stacks/                  # 技术栈预设
-│   └── schemas/                 # OpenSpec 自定义 schema
+│   └── settings.json            # 钩子配置
 ├── openspec/                    # 规格文档（OpenSpec）
 │   ├── specs/                   # 当前系统规格
 │   ├── changes/                 # 进行中的变更

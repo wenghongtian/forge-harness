@@ -346,7 +346,7 @@ install.sh 检测来源
     解压到临时目录
         │
         ▼
-    复制到项目的 forge/ 目录
+    复制到项目的 .claude/ 目录
 ```
 
 ### 安装产物
@@ -354,12 +354,16 @@ install.sh 检测来源
 ```
 install.sh 执行后在用户项目中创建：
 
-[1] forge/           ← 框架文件副本（commands、agents、skills、hooks、stacks）
-[2] openspec/        ← OpenSpec 初始化 + forge-lifecycle schema
-[3] .claude/rules/   ← 编码规则
-[4] .claude/settings.json ← 钩子注册
-[5] contracts/api/   ← API 契约目录
-[6] CLAUDE.md        ← 项目级说明
+[1] .claude/commands/     ← 斜杠指令（/genesis, /iterate 等）
+[2] .claude/skills/       ← 领域知识（产品设计、UI/UX、API 等）
+[3] .claude/rules/        ← 编码规则（架构、前端、后端、第一性原理）
+[4] .claude/agents/       ← 智能体定义（产品设计师、架构师等）
+[5] .claude/hooks/        ← 钩子脚本（审批阻塞、文档同步等）
+[6] .claude/stacks/       ← 技术栈预设
+[7] .claude/settings.json ← 钩子注册
+[8] openspec/             ← OpenSpec + forge-lifecycle schema
+[9] contracts/api/        ← API 契约目录
+[10] CLAUDE.md            ← 项目级说明
 ```
 
 **设计决策**：安装时**复制**而非 symlink。保证用户项目独立于 Forge 源仓库，不存在路径依赖。
