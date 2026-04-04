@@ -1,0 +1,55 @@
+name: nextjs-python
+description: Next.js 14+ 前端搭配 Python + FastAPI 后端
+
+frontend:
+  framework: Next.js 14+（App Router）
+  language: TypeScript
+  build_tool: Next.js 内置（Turbopack）
+  ui_library: Tailwind CSS + shadcn/ui
+  state_management: Zustand（客户端）+ Server Components（服务端）
+  data_fetching: Server Components + TanStack Query（客户端）
+  routing: Next.js App Router
+  form_handling: React Hook Form + Zod
+  testing: Vitest + Testing Library
+  linting: ESLint + Prettier
+
+backend:
+  framework: FastAPI
+  language: Python
+  runtime: Python 3.12+
+  database: PostgreSQL
+  orm: SQLAlchemy 2.0 + Alembic
+  validation: Pydantic v2
+  auth: python-jose + passlib
+  logging: structlog
+  testing: pytest + httpx
+  api_style: RESTful
+
+shared:
+  api_contract: OpenAPI 3.1（FastAPI 自动生成）
+  monorepo: false
+  package_manager: pnpm（前端）/ uv（后端）
+  python_version: "3.12"
+  node_version: "20"
+
+init_commands:
+  frontend: |
+    pnpm create next-app frontend --typescript --tailwind --app --src-dir --import-alias "@/*"
+    cd frontend && pnpm install
+    pnpm add zustand @tanstack/react-query react-hook-form @hookform/resolvers zod
+    pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom
+    npx shadcn@latest init -y
+  backend: |
+    mkdir -p backend && cd backend
+    uv init
+    uv add fastapi uvicorn[standard] sqlalchemy[asyncio] alembic asyncpg
+    uv add pydantic pydantic-settings python-jose[cryptography] passlib[bcrypt]
+    uv add structlog
+    uv add --dev pytest httpx pytest-asyncio factory-boy
+
+conventions:
+  file_naming: camelCase（前端），snake_case（后端）
+  component_style: Server Components 为默认，仅需要时使用 "use client"
+  api_prefix: /api/v1
+  backend_structure: app/ routers/ services/ models/ schemas/ core/
+  test_suffix: .test.ts（前端）/ test_*.py（后端）

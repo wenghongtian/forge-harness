@@ -1,0 +1,47 @@
+# 自定义技术栈模板
+# 将此文件复制为新的 YAML 文件并填写你的技术栈详情。
+# 示例：cp custom.yaml.template my-stack.yaml
+
+name: custom-stack
+description: 在此描述你的技术栈
+
+frontend:
+  framework: # 如 React, Vue, Svelte, Angular
+  language: # 如 TypeScript, JavaScript
+  build_tool: # 如 Vite, Webpack, Turbopack
+  ui_library: # 如 Tailwind CSS + shadcn/ui
+  state_management: # 如 Zustand, Pinia, Svelte stores
+  data_fetching: # 如 TanStack Query, SWR
+  routing: # 如 React Router, Vue Router, SvelteKit
+  form_handling: # 如 React Hook Form + Zod
+  testing: # 如 Vitest + Testing Library
+  linting: # 如 ESLint + Prettier
+
+backend:
+  framework: # 如 Express, Gin, FastAPI, Spring Boot
+  language: # 如 TypeScript, Go, Python, Java
+  runtime: # 如 Node.js, Go 1.22+, Python 3.12+
+  database: # 如 PostgreSQL, MySQL, MongoDB
+  orm: # 如 Prisma, GORM, SQLAlchemy
+  validation: # 如 Zod, Pydantic
+  auth: # 如 jsonwebtoken, golang-jwt
+  logging: # 如 pino, zerolog, structlog
+  testing: # 如 Vitest, go test, pytest
+  api_style: # RESTful 或 GraphQL
+
+shared:
+  api_contract: # 如 OpenAPI 3.1, GraphQL SDL
+  monorepo: false # true 或 false
+  package_manager: # 如 pnpm, npm, yarn
+
+init_commands:
+  frontend: |
+    # 初始化前端项目的命令
+  backend: |
+    # 初始化后端项目的命令
+
+conventions:
+  file_naming: # 如 camelCase, snake_case, kebab-case
+  component_style: # 如 函数式组件, Composition API
+  api_prefix: /api/v1
+  test_suffix: # 如 .test.ts, _test.go

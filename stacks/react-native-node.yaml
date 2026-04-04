@@ -1,0 +1,57 @@
+name: react-native-node
+description: React Native + Expo 移动端搭配 Node.js + Express 后端
+
+frontend:
+  framework: React Native + Expo
+  language: TypeScript
+  build_tool: Expo CLI
+  ui_library: Tamagui
+  state_management: Zustand
+  data_fetching: TanStack Query
+  routing: Expo Router
+  form_handling: React Hook Form + Zod
+  testing: Jest + React Native Testing Library
+  linting: ESLint + Prettier
+
+backend:
+  framework: Express
+  language: TypeScript
+  runtime: Node.js
+  database: PostgreSQL
+  orm: Prisma
+  validation: Zod
+  auth: jsonwebtoken + bcrypt
+  logging: pino
+  testing: Vitest + Supertest
+  api_style: RESTful
+
+shared:
+  api_contract: OpenAPI 3.1
+  monorepo: false
+  package_manager: pnpm
+  node_version: "20"
+
+init_commands:
+  frontend: |
+    npx create-expo-app frontend --template expo-template-blank-typescript
+    cd frontend
+    npx expo install expo-router expo-linking expo-constants expo-status-bar
+    pnpm add zustand @tanstack/react-query react-hook-form @hookform/resolvers zod
+    pnpm add tamagui @tamagui/config
+    pnpm add -D @testing-library/react-native jest-expo
+  backend: |
+    mkdir -p backend/src && cd backend
+    pnpm init
+    pnpm add express cors helmet morgan
+    pnpm add prisma @prisma/client zod jsonwebtoken bcrypt pino
+    pnpm add -D typescript @types/node @types/express @types/cors @types/jsonwebtoken @types/bcrypt
+    pnpm add -D vitest supertest @types/supertest tsx
+    npx prisma init
+    npx tsc --init
+
+conventions:
+  file_naming: camelCase 文件名，PascalCase 组件名
+  component_style: 函数式组件，Expo Router 基于文件的路由
+  api_prefix: /api/v1
+  test_suffix: .test.ts / .test.tsx
+  platform_check: 使用 Platform.OS 处理平台差异代码

@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "node hooks/human-gate.js",
+        "description": "在审批关卡阶段，未经批准时阻塞提交"
+      },
+      {
+        "matcher": "Bash",
+        "command": "node hooks/branch-doc-check.js",
+        "description": "确保功能分支有对应的 OpenSpec 变更文件夹"
+      },
+      {
+        "matcher": "Bash",
+        "command": "node hooks/pre-commit-quality.js",
+        "description": "git commit 前的质量检查"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "node hooks/doc-sync.js",
+        "description": "代码变更缺少规格追踪时发出警告"
+      }
+    ]
+  }
+}

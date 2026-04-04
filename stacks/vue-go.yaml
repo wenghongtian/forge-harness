@@ -1,0 +1,58 @@
+name: vue-go
+description: Vue 3 + TypeScript 前端搭配 Go + Gin 后端
+
+frontend:
+  framework: Vue 3
+  language: TypeScript
+  build_tool: Vite
+  ui_library: Tailwind CSS + Naive UI
+  state_management: Pinia
+  data_fetching: VueUse + ofetch
+  routing: Vue Router
+  form_handling: VeeValidate + Zod
+  testing: Vitest + Vue Test Utils
+  linting: ESLint + Prettier
+
+backend:
+  framework: Gin
+  language: Go
+  runtime: Go 1.22+
+  database: PostgreSQL
+  orm: GORM
+  validation: go-playground/validator
+  auth: golang-jwt/jwt
+  logging: zerolog
+  testing: go test + testify
+  api_style: RESTful
+
+shared:
+  api_contract: OpenAPI 3.1
+  monorepo: false
+  package_manager: pnpm（前端）/ go modules（后端）
+  go_version: "1.22"
+  node_version: "20"
+
+init_commands:
+  frontend: |
+    pnpm create vite frontend --template vue-ts
+    cd frontend && pnpm install
+    pnpm add tailwindcss @tailwindcss/vite
+    pnpm add pinia vue-router naive-ui
+    pnpm add vee-validate @vee-validate/zod zod
+    pnpm add -D vitest @vue/test-utils jsdom
+  backend: |
+    mkdir -p backend && cd backend
+    go mod init <模块名>
+    go get github.com/gin-gonic/gin
+    go get gorm.io/gorm gorm.io/driver/postgres
+    go get github.com/golang-jwt/jwt/v5
+    go get github.com/rs/zerolog
+    go get github.com/go-playground/validator/v10
+    go get github.com/stretchr/testify
+
+conventions:
+  file_naming: camelCase（前端），snake_case（后端）
+  component_style: Composition API + <script setup>
+  api_prefix: /api/v1
+  backend_structure: handlers/ services/ models/ middleware/ pkg/
+  test_suffix: .test.ts（前端）/ _test.go（后端）

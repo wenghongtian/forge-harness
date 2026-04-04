@@ -1,0 +1,58 @@
+name: react-node
+description: React + TypeScript 前端搭配 Node.js + Express 后端
+
+frontend:
+  framework: React
+  language: TypeScript
+  build_tool: Vite
+  ui_library: Tailwind CSS + shadcn/ui
+  state_management: Zustand
+  data_fetching: TanStack Query
+  routing: React Router v6
+  form_handling: React Hook Form + Zod
+  testing: Vitest + Testing Library
+  linting: ESLint + Prettier
+
+backend:
+  framework: Express
+  language: TypeScript
+  runtime: Node.js
+  database: PostgreSQL
+  orm: Prisma
+  validation: Zod
+  auth: jsonwebtoken + bcrypt
+  logging: pino
+  testing: Vitest + Supertest
+  linting: ESLint + Prettier
+  api_style: RESTful
+
+shared:
+  api_contract: OpenAPI 3.1
+  monorepo: false
+  package_manager: pnpm
+  node_version: "20"
+
+init_commands:
+  frontend: |
+    pnpm create vite frontend --template react-ts
+    cd frontend && pnpm install
+    pnpm add tailwindcss @tailwindcss/vite
+    pnpm add zustand @tanstack/react-query react-router-dom
+    pnpm add react-hook-form @hookform/resolvers zod
+    pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom
+    npx shadcn@latest init -y
+  backend: |
+    mkdir -p backend/src && cd backend
+    pnpm init
+    pnpm add express cors helmet morgan
+    pnpm add prisma @prisma/client zod jsonwebtoken bcrypt pino
+    pnpm add -D typescript @types/node @types/express @types/cors @types/jsonwebtoken @types/bcrypt
+    pnpm add -D vitest supertest @types/supertest tsx
+    npx prisma init
+    npx tsc --init
+
+conventions:
+  file_naming: camelCase 文件名, PascalCase 组件名
+  component_style: 函数式组件 + hooks
+  api_prefix: /api/v1
+  test_suffix: .test.ts / .test.tsx
