@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew list:*)",
+      "Bash(npm list:*)",
+      "Bash(pip show:*)",
+      "Bash(npm uninstall:*)",
+      "Read(//opt/homebrew/lib/node_modules/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(launchctl list:*)",
+      "Read(//Users/wenghongtian/Library/LaunchAgents/**)",
+      "Read(//Library/LaunchDaemons/**)",
+      "Read(//Library/LaunchAgents/**)",
+      "WebFetch(domain:skills.sh)",
+      "Bash(wc:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(chmod +x:*)",
+      "Skill(codex:rescue)"
+    ]
+  }
+}

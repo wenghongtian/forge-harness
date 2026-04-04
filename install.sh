@@ -80,7 +80,7 @@ echo ""
 FORGE_SOURCE=""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || echo "")"
 
-if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/CLAUDE.md" ] && [ -d "$SCRIPT_DIR/commands" ]; then
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/CLAUDE.md" ] && [ -d "$SCRIPT_DIR/.claude/commands" ]; then
   # 本地模式：install.sh 在 forge 仓库中运行
   FORGE_SOURCE="local"
   FORGE_DIR="$SCRIPT_DIR"
@@ -122,7 +122,7 @@ download_forge() {
   # 如果框架文件在子目录 forge/ 中
   if [ -d "$extracted_dir/forge" ]; then
     FORGE_DIR="$extracted_dir/forge"
-  elif [ -f "$extracted_dir/CLAUDE.md" ] && [ -d "$extracted_dir/commands" ]; then
+  elif [ -f "$extracted_dir/CLAUDE.md" ] && [ -d "$extracted_dir/.claude/commands" ]; then
     FORGE_DIR="$extracted_dir"
   else
     echo "错误：下载的仓库中未找到 Forge 框架文件。"
@@ -150,8 +150,8 @@ echo "[1/5] 安装框架文件..."
 
 # 指令 → .claude/commands/（Claude Code 斜杠指令）
 mkdir -p .claude/commands
-if ls "$FORGE_DIR/commands/"*.md &>/dev/null; then
-  for cmd in "$FORGE_DIR/commands/"*.md; do
+if ls "$FORGE_DIR/.claude/commands/"*.md &>/dev/null; then
+  for cmd in "$FORGE_DIR/.claude/commands/"*.md; do
     cp "$cmd" .claude/commands/
   done
 fi
@@ -159,8 +159,8 @@ echo "  已安装指令到 .claude/commands/"
 
 # 技能 → .claude/skills/（Claude Code 领域知识）
 mkdir -p .claude/skills
-if [ -d "$FORGE_DIR/skills" ]; then
-  for skill_dir in "$FORGE_DIR/skills/"*/; do
+if [ -d "$FORGE_DIR/.claude/skills" ]; then
+  for skill_dir in "$FORGE_DIR/.claude/skills/"*/; do
     skill_name=$(basename "$skill_dir")
     mkdir -p ".claude/skills/$skill_name"
     cp -r "$skill_dir"* ".claude/skills/$skill_name/"
