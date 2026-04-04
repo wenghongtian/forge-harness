@@ -221,14 +221,18 @@ echo "[4/5] 安装 Claude Code 规则和钩子..."
 mkdir -p .claude/rules
 
 # 复制规则
-for rule in "$FORGE_DIR/.claude/rules/"*.md 2>/dev/null; do
-  [ -f "$rule" ] && cp "$rule" .claude/rules/
-done
+if ls "$FORGE_DIR/.claude/rules/"*.md &>/dev/null; then
+  for rule in "$FORGE_DIR/.claude/rules/"*.md; do
+    cp "$rule" .claude/rules/
+  done
+fi
 # 如果远程模式下 FORGE_DIR 已被清理，从已安装的 forge/ 中补充
 if [ ! "$(ls -A .claude/rules/ 2>/dev/null)" ]; then
-  for rule in forge/.claude/rules/*.md 2>/dev/null; do
-    [ -f "$rule" ] && cp "$rule" .claude/rules/
-  done
+  if ls forge/.claude/rules/*.md &>/dev/null; then
+    for rule in forge/.claude/rules/*.md; do
+      cp "$rule" .claude/rules/
+    done
+  fi
 fi
 echo "  已安装规则：$(ls .claude/rules/*.md 2>/dev/null | wc -l | tr -d ' ') 个"
 
