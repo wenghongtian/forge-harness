@@ -180,9 +180,16 @@ echo "  已安装：commands(7) skills(5) rules(4) agents(7) hooks(4) stacks(4)"
 
 echo "[2/4] 初始化 OpenSpec..."
 
+# 安装 @fission-ai/openspec
+if command -v pnpm &>/dev/null; then
+  pnpm add -D @fission-ai/openspec 2>/dev/null || echo "  警告：无法安装 @fission-ai/openspec，将手动创建目录结构"
+else
+  echo "  警告：未找到 pnpm，请先安装 pnpm（npm install -g pnpm）"
+fi
+
 if [ ! -d "openspec" ]; then
-  if command -v npx &>/dev/null; then
-    npx openspec init --tools claude --profile core 2>/dev/null || {
+  if command -v pnpm &>/dev/null; then
+    pnpm exec openspec init --tools none --profile core 2>/dev/null || {
       mkdir -p openspec/specs openspec/changes/archive
     }
   else

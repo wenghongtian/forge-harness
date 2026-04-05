@@ -48,13 +48,13 @@ test -f openspec/schemas/forge-lifecycle/schema.yaml && echo "✓ forge-lifecycl
 
 1. 创建新变更（OpenSpec 已在安装时初始化）：
 ```bash
-npx openspec new change genesis-<产品名> --schema forge-lifecycle
+pnpm exec openspec new change genesis-<产品名> --schema forge-lifecycle
 ```
 
 2. 查看当前工件状态和指引：
 ```bash
-npx openspec status --change genesis-<产品名> --json
-npx openspec instructions proposal --change genesis-<产品名>
+pnpm exec openspec status --change genesis-<产品名> --json
+pnpm exec openspec instructions proposal --change genesis-<产品名>
 ```
 
 3. 委托 **product-designer** 智能体：
@@ -62,7 +62,7 @@ npx openspec instructions proposal --change genesis-<产品名>
    - 智能体按照 OpenSpec 指引产出 `proposal.md`
    - 再获取下一个工件的指引：
 ```bash
-npx openspec instructions product-spec --change genesis-<产品名>
+pnpm exec openspec instructions product-spec --change genesis-<产品名>
 ```
    - 智能体产出 `specs/product-spec.md`
 
@@ -97,7 +97,7 @@ npx openspec instructions product-spec --change genesis-<产品名>
 
 1. 获取设计工件的指引：
 ```bash
-npx openspec instructions design --change genesis-<产品名>
+pnpm exec openspec instructions design --change genesis-<产品名>
 ```
 
 2. 委托 **tech-architect** 智能体：
@@ -151,7 +151,7 @@ cd backend && npm install && npm run dev   # 应无错启动
 
 获取任务工件的指引并生成：
 ```bash
-npx openspec instructions tasks --change genesis-<产品名>
+pnpm exec openspec instructions tasks --change genesis-<产品名>
 ```
 
 按照模板格式在 `tasks.md` 中列出所有任务。
@@ -164,7 +164,7 @@ npx openspec instructions tasks --change genesis-<产品名>
 
 使用 OpenSpec 的 apply 指引获取当前进度：
 ```bash
-npx openspec instructions apply --change genesis-<产品名> --json
+pnpm exec openspec instructions apply --change genesis-<产品名> --json
 ```
 
 实现顺序：
@@ -174,7 +174,7 @@ npx openspec instructions apply --change genesis-<产品名> --json
 
 每完成一个任务，在 `tasks.md` 中标记 `[x]`，然后再次查询进度：
 ```bash
-npx openspec instructions apply --change genesis-<产品名> --json
+pnpm exec openspec instructions apply --change genesis-<产品名> --json
 ```
 
 ---
@@ -212,7 +212,7 @@ npx openspec instructions apply --change genesis-<产品名> --json
 1. 运行最终测试
 2. 归档 OpenSpec 变更：
 ```bash
-npx openspec archive genesis-<产品名>
+pnpm exec openspec archive genesis-<产品名>
 ```
 
 3. 提交代码：

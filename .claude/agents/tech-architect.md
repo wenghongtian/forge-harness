@@ -43,7 +43,7 @@ model: opus
 1. 读取技术栈配置：检查 `openspec/config.yaml` 中的技术栈引用，然后阅读对应的 `stacks/*.yaml`
 2. 获取 OpenSpec 设计指引：
 ```bash
-npx openspec instructions design --change <变更名>
+pnpm exec openspec instructions design --change <变更名>
 ```
 3. 如果是迭代，阅读现有规格：`openspec/specs/`
 

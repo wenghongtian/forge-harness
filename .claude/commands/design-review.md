@@ -14,8 +14,8 @@ allowed_tools: ["Read", "Bash", "Grep", "Glob", "AskUserQuestion"]
 
 使用 OpenSpec 查找活跃变更和产品规格：
 ```bash
-npx openspec list --changes --json
-npx openspec status --change <变更名> --json
+pnpm exec openspec list --changes --json
+pnpm exec openspec status --change <变更名> --json
 ```
 
 读取提案和产品规格：

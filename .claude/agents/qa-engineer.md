@@ -16,7 +16,7 @@ model: sonnet
 2. 阅读验收标准
 3. 使用 OpenSpec 检查任务完成情况：
 ```bash
-npx openspec instructions apply --change <变更名> --json
+pnpm exec openspec instructions apply --change <变更名> --json
 ```
 
 ### 第二步：功能验证

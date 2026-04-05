@@ -13,7 +13,7 @@ allowed_tools: ["Read", "Bash", "Grep", "Glob", "AskUserQuestion"]
 ### 第一步：定位设计
 
 ```bash
-npx openspec status --change <变更名> --json
+pnpm exec openspec status --change <变更名> --json
 ```
 
 读取技术设计：`openspec/changes/<变更名>/design.md`

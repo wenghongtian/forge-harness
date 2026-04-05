@@ -14,7 +14,7 @@ allowed_tools: ["Read", "Bash", "Grep", "Glob", "Agent", "AskUserQuestion"]
 
 1. 使用 OpenSpec 检查任务完成情况：
 ```bash
-npx openspec instructions apply --change <变更名> --json
+pnpm exec openspec instructions apply --change <变更名> --json
 ```
 
 2. 委托 **qa-engineer** 智能体进行自动检查

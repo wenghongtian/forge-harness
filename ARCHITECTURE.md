@@ -280,13 +280,13 @@ apply:
 读取 git 状态 ──────────── 当前分支、最近提交
     │
     ▼
-读取 OpenSpec 状态 ────── npx openspec list --changes --json
-    │                     npx openspec status --change <名> --json
+读取 OpenSpec 状态 ────── pnpm exec openspec list --changes --json
+    │                     pnpm exec openspec status --change <名> --json
     ▼
 检查审批标记 ──────────── grep FORGE_GATE 文档
     │
     ▼
-检查任务进度 ──────────── npx openspec instructions apply --json
+检查任务进度 ──────────── pnpm exec openspec instructions apply --json
     │
     ▼
 生成恢复报告 ──────────── 展示给用户确认

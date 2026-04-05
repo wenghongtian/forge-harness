@@ -24,12 +24,12 @@ allowed_tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Agent", "AskUs
 2. 创建热修复分支和 OpenSpec 变更：
 ```bash
 git checkout -b hotfix/<bug名>
-npx openspec new change hotfix-<bug名> --schema forge-lifecycle
+pnpm exec openspec new change hotfix-<bug名> --schema forge-lifecycle
 ```
 
 3. 按 OpenSpec 指引写提案：
 ```bash
-npx openspec instructions proposal --change hotfix-<bug名>
+pnpm exec openspec instructions proposal --change hotfix-<bug名>
 ```
 
 在 `proposal.md` 中记录 Bug 报告、根因（待分析）和修复策略。
@@ -40,7 +40,7 @@ npx openspec instructions proposal --change hotfix-<bug名>
 
 1. 阅读相关规格了解预期行为：
 ```bash
-npx openspec list --specs
+pnpm exec openspec list --specs
 ```
 
 2. 追踪代码路径，定位问题根因
@@ -64,7 +64,7 @@ npx openspec list --specs
 
 5. 如果修复改变了已定义的行为，写增量规格：
 ```bash
-npx openspec instructions product-spec --change hotfix-<bug名>
+pnpm exec openspec instructions product-spec --change hotfix-<bug名>
 ```
 
 ---
@@ -93,7 +93,7 @@ Bug：[描述]
 ## 第五阶段：交付
 
 ```bash
-npx openspec archive hotfix-<bug名>
+pnpm exec openspec archive hotfix-<bug名>
 git add -A
 git commit -m "fix: <Bug 描述>
 

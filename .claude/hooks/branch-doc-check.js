@@ -58,7 +58,7 @@ process.stdin.on('end', () => {
     if (isNewBranch) {
       process.stderr.write(
         `[Forge:分支文档] 提示：正在创建分支 "${targetBranch}"。\n` +
-        `记得创建 OpenSpec 变更：npx openspec new change <变更名>\n`
+        `记得创建 OpenSpec 变更：pnpm exec openspec new change <变更名>\n`
       );
     } else {
       const changesDir = path.join(process.cwd(), 'openspec', 'changes');
@@ -70,7 +70,7 @@ process.stdin.on('end', () => {
         if (!hasChange) {
           process.stderr.write(
             `[Forge:分支文档] 警告：分支 "${targetBranch}" 没有匹配的 OpenSpec 变更。\n` +
-            `建议创建：npx openspec new change <变更名>\n`
+            `建议创建：pnpm exec openspec new change <变更名>\n`
           );
         }
       }

@@ -21,7 +21,7 @@ git log --oneline -10
 
 2. 使用 OpenSpec 查看所有变更及其状态：
 ```bash
-npx openspec list --changes --json
+pnpm exec openspec list --changes --json
 ```
 
 3. 读取项目配置：
@@ -35,10 +35,10 @@ cat openspec/config.yaml
 
 ```bash
 # 查看工件完成情况
-npx openspec status --change <变更名> --json
+pnpm exec openspec status --change <变更名> --json
 
 # 如果有任务，查看实现进度
-npx openspec instructions apply --change <变更名> --json
+pnpm exec openspec instructions apply --change <变更名> --json
 ```
 
 OpenSpec 会返回：

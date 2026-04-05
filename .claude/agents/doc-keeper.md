@@ -20,8 +20,8 @@ model: sonnet
 
 使用 OpenSpec 命令检查：
 ```bash
-npx openspec status --change <变更名> --json
-npx openspec validate <变更名>
+pnpm exec openspec status --change <变更名> --json
+pnpm exec openspec validate <变更名>
 ```
 
 ### 2. 规格准确性
@@ -31,15 +31,15 @@ npx openspec validate <变更名>
 - 没有缺失规格（存在但未记录的功能）
 
 ```bash
-npx openspec list --specs --json
-npx openspec validate --all
+pnpm exec openspec list --specs --json
+pnpm exec openspec validate --all
 ```
 
 ### 3. 分支文档管理
 处理分支时：
 - 确保每个功能分支有自己的变更文件夹
 - 合并前检查是否有规格冲突（两个分支改同一 spec 领域）
-- 合并后用 `npx openspec archive` 更新主规格
+- 合并后用 `pnpm exec openspec archive` 更新主规格
 
 ### 4. 会话恢复支持
 维护文档以支持会话恢复：

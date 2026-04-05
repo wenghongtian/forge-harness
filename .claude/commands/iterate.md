@@ -20,7 +20,7 @@ allowed_tools: ["Read", "Write", "Edit", "Bash", "Grep", "Glob", "Agent", "AskUs
 
 1. 查看现有规格：
 ```bash
-npx openspec list --specs
+pnpm exec openspec list --specs
 ```
 
 2. 询问用户：
@@ -43,12 +43,12 @@ git checkout -b feature/<变更名>
 
 2. 创建新的 OpenSpec 变更：
 ```bash
-npx openspec new change <变更名> --schema forge-lifecycle
+pnpm exec openspec new change <变更名> --schema forge-lifecycle
 ```
 
 3. 按 OpenSpec 指引创建工件：
 ```bash
-npx openspec instructions proposal --change <变更名>
+pnpm exec openspec instructions proposal --change <变更名>
 ```
 
 4. 委托 **product-designer** 智能体：
@@ -67,7 +67,7 @@ npx openspec instructions proposal --change <变更名>
 
 1. 获取设计指引：
 ```bash
-npx openspec instructions design --change <变更名>
+pnpm exec openspec instructions design --change <变更名>
 ```
 
 2. 委托 **tech-architect** 智能体产出 `design.md`
@@ -82,12 +82,12 @@ npx openspec instructions design --change <变更名>
 
 1. 生成任务清单：
 ```bash
-npx openspec instructions tasks --change <变更名>
+pnpm exec openspec instructions tasks --change <变更名>
 ```
 
 2. 使用 apply 指引追踪进度：
 ```bash
-npx openspec instructions apply --change <变更名> --json
+pnpm exec openspec instructions apply --change <变更名> --json
 ```
 
 3. 按顺序实现，每完成一个任务标记 `[x]`
@@ -109,7 +109,7 @@ npx openspec instructions apply --change <变更名> --json
 1. 运行完整测试套件
 2. 归档变更：
 ```bash
-npx openspec archive <变更名>
+pnpm exec openspec archive <变更名>
 ```
 
 3. 提交并准备合并：

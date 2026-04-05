@@ -40,8 +40,8 @@ model: opus
 
 按照 OpenSpec 工件格式生成文档。使用以下命令获取指引：
 ```bash
-npx openspec instructions proposal --change <变更名>
-npx openspec instructions product-spec --change <变更名>
+pnpm exec openspec instructions proposal --change <变更名>
+pnpm exec openspec instructions product-spec --change <变更名>
 ```
 
 遵循 OpenSpec 返回的模板和指令。

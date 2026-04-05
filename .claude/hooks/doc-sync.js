@@ -60,7 +60,7 @@ process.stdin.on('end', () => {
     if (activeChanges.length === 0) {
       process.stderr.write(
         `[Forge:文档同步] 警告：正在编辑源代码但没有活跃的 OpenSpec 变更。\n` +
-        `请先创建变更：npx openspec new change <变更名>\n`
+        `请先创建变更：pnpm exec openspec new change <变更名>\n`
       );
     }
 

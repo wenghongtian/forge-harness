@@ -14,7 +14,7 @@ model: sonnet
 1. 读取技术栈配置：`openspec/config.yaml` → `stacks/*.yaml`
 2. 获取当前任务进度：
 ```bash
-npx openspec instructions apply --change <变更名> --json
+pnpm exec openspec instructions apply --change <变更名> --json
 ```
 3. 读取技术设计：`openspec/changes/*/design.md`
 4. 检查 `backend/src/` 中的现有代码模式
@@ -69,7 +69,7 @@ npx openspec instructions apply --change <变更名> --json
 
 ## 任务流程
 
-1. 查看当前任务：`npx openspec instructions apply --change <变更名> --json`
+1. 查看当前任务：`pnpm exec openspec instructions apply --change <变更名> --json`
 2. 按上述顺序实现
 3. 启动后端服务器验证：`cd backend && npm run dev`
 4. 运行测试：`cd backend && npm test`
