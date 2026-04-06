@@ -50,7 +50,7 @@ echo "  Forge — 安装框架"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  项目：$PROJECT_NAME"
 echo "  路径：$PROJECT_DIR"
-[ -n "$STACK_NAME" ] && echo "  技术栈：$STACK_NAME"
+[ -n "$STACK_NAME" ] && echo "  技术栈：${STACK_NAME}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
@@ -207,7 +207,7 @@ fi
 STACK_CONTEXT=""
 if [ -n "$STACK_NAME" ]; then
   if [ -f ".claude/stacks/${STACK_NAME}.yaml" ]; then
-    STACK_CONTEXT="技术栈：$STACK_NAME（详见 .claude/stacks/${STACK_NAME}.yaml）"
+    STACK_CONTEXT="技术栈：${STACK_NAME}（详见 .claude/stacks/${STACK_NAME}.yaml）"
   else
     echo "  警告：技术栈 '$STACK_NAME' 未找到"; STACK_NAME=""
   fi
@@ -272,7 +272,7 @@ if [ ! -f "CLAUDE.md" ]; then
 | \`/accept\` | 功能验收（人工关卡） |
 
 ## 技术栈
-${STACK_NAME:+当前技术栈：\`$STACK_NAME\`（详见 \`.claude/stacks/${STACK_NAME}.yaml\`）}
+${STACK_NAME:+当前技术栈：\`${STACK_NAME}\`（详见 \`.claude/stacks/${STACK_NAME}.yaml\`）}
 ${STACK_NAME:-技术栈未指定，使用 /genesis 时会引导选择。}
 
 详见 \`openspec/config.yaml\`。
