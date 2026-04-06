@@ -153,9 +153,9 @@ if [ ! -f ".claude/settings.json" ]; then
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "node .claude/hooks/human-gate.cjs" },
-          { "type": "command", "command": "node .claude/hooks/branch-doc-check.cjs" },
-          { "type": "command", "command": "node .claude/hooks/pre-commit-quality.cjs" }
+          { "type": "command", "command": "node .claude/hooks/human-gate.cjs 2>/dev/null; rc=$?; [ $rc -eq 2 ] && exit 2; exit 0" },
+          { "type": "command", "command": "node .claude/hooks/branch-doc-check.cjs 2>/dev/null; rc=$?; [ $rc -eq 2 ] && exit 2; exit 0" },
+          { "type": "command", "command": "node .claude/hooks/pre-commit-quality.cjs 2>/dev/null; rc=$?; [ $rc -eq 2 ] && exit 2; exit 0" }
         ]
       }
     ],
@@ -163,7 +163,7 @@ if [ ! -f ".claude/settings.json" ]; then
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "node .claude/hooks/doc-sync.cjs" }
+          { "type": "command", "command": "node .claude/hooks/doc-sync.cjs 2>/dev/null || true" }
         ]
       }
     ]
