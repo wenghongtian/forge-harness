@@ -58,7 +58,7 @@ describe('POST /api/v1/users', () => {
       .post('/api/v1/users')
       .send({ password: '123456' });
     expect(res.status).toBe(422);
-    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+    expect(res.body.code).toBe('VALIDATION_ERROR');
   });
 });
 ```

@@ -21,14 +21,14 @@ pnpm exec openspec instructions apply --change <变更名> --json
 
 ## 实现顺序
 
-始终按此顺序实现：
-1. **数据库** — 迁移、模型/实体
-2. **验证器** — 输入验证模式
-3. **服务** — 业务逻辑（纯函数，可测试）
-4. **控制器** — 请求处理器（精简，委托给服务）
-5. **路由** — 将控制器连接到端点
-6. **中间件** — 认证、日志、错误处理
-7. **测试** — 服务单元测试、端点集成测试
+始终按此顺序实现（NestJS）：
+1. **Module** — 创建/更新模块定义
+2. **Entity** — TypeORM 实体（数据库模型）
+3. **DTO** — 请求/响应 DTO（含 class-validator 装饰器 + @ApiProperty Swagger 装饰器）
+4. **Service** — 业务逻辑（纯函数，可测试）
+5. **Controller** — 请求处理器（精简，委托给 Service，含 Swagger 装饰器）
+6. **Guard/Interceptor** — 认证、日志、错误处理
+7. **测试** — Service 单元测试、Controller 集成测试
 
 ## 实现标准
 
@@ -39,7 +39,7 @@ pnpm exec openspec instructions apply --change <变更名> --json
 - 一个文件一个职责 — 不混合无关功能
 
 ### 安全
-- 使用技术栈的验证库验证所有输入（Zod、Pydantic 等）
+- 使用 class-validator + class-transformer 验证所有 DTO 输入
 - 参数化所有数据库查询 — 永远不要拼接用户输入
 - 用 bcrypt/argon2 哈希密码（最少 12 轮）
 - 认证令牌使用 httpOnly + secure + sameSite Cookie
@@ -62,7 +62,7 @@ pnpm exec openspec instructions apply --change <变更名> --json
 - 永远不要静默吞掉错误
 
 ### 日志
-- 使用结构化 JSON 日志（不用 console.log）
+- 使用 NestJS 内置 Logger（不用 console.log）
 - 所有日志条目包含请求 ID
 - 记录：入站请求、出站响应、错误、重要业务事件
 - 永远不记录：密码、令牌、个人信息、生产环境的完整请求体
@@ -71,7 +71,7 @@ pnpm exec openspec instructions apply --change <变更名> --json
 
 1. 查看当前任务：`pnpm exec openspec instructions apply --change <变更名> --json`
 2. 按上述顺序实现
-3. 启动后端服务器验证：`cd backend && npm run dev`
-4. 运行测试：`cd backend && npm test`
+3. 启动后端服务器验证：`cd backend && pnpm dev`
+4. 运行测试：`cd backend && pnpm test`
 5. 在 `tasks.md` 中标记 `[x]`
 6. 进入下一个任务

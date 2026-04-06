@@ -21,15 +21,15 @@ pnpm exec openspec instructions apply --change <变更名> --json
 
 3. 运行完整测试套件：
 ```bash
-cd frontend && npm test 2>&1 || true
-cd backend && npm test 2>&1 || true
+cd frontend && pnpm test 2>&1 || true
+cd backend && pnpm test 2>&1 || true
 ```
 
 ### 第二步：启动应用
 
 ```bash
-cd backend && npm run dev &
-cd frontend && npm run dev
+cd backend && pnpm dev &
+cd frontend && pnpm dev
 ```
 
 ### 第三步：展示验收

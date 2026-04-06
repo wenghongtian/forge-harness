@@ -139,8 +139,8 @@ cat .claude/stacks/<技术栈名>.yaml
 
 3. 验证脚手架：
 ```bash
-cd frontend && npm install && npm run dev  # 应无错启动
-cd backend && npm install && npm run dev   # 应无错启动
+cd frontend && pnpm install && pnpm dev  # 应无错启动
+cd backend && pnpm install && pnpm dev   # 应无错启动
 ```
 
 ---

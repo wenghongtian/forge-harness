@@ -25,7 +25,7 @@
 │  Agents（智能体） │ │  Skills  │ │  Hooks（钩子）    │
 │                  │ │（领域知识）│ │                  │
 │  执行具体任务     │ │          │ │  自动化守护       │
-│  agents/*.md     │ │  提供方法 │ │  hooks/*.js      │
+│  agents/*.md     │ │  提供方法 │ │  hooks/*.cjs     │
 │                  │ │  论参考   │ │                  │
 │  product-designer│ │  skills/  │ │  human-gate      │
 │  tech-architect  │ │  *.md    │ │  doc-sync        │
@@ -142,19 +142,19 @@ skills/
 ```
 PreToolUse                              PostToolUse
     │                                       │
-    ├── human-gate.js ──── git commit ────── 阻塞（exit 2）
+    ├── human-gate.cjs ──── git commit ────── 阻塞（exit 2）
     │   检查审批标记                          或放行
     │
-    ├── branch-doc-check.js ── git checkout ── 提醒创建变更
+    ├── branch-doc-check.cjs ── git checkout ── 提醒创建变更
     │   检查变更文件夹
-    │                                       ├── doc-sync.js ──── Edit/Write
-    ├── pre-commit-quality.js ── git commit  │   检查 OpenSpec 变更
+    │                                       ├── doc-sync.cjs ──── Edit/Write
+    ├── pre-commit-quality.cjs ── git commit  │   检查 OpenSpec 变更
     │   检查 console.log/.env/debugger       │   追踪是否存在
     │                                       │
 ```
 
 **设计决策**：
-- `human-gate.js` 是唯一**阻塞**的钩子（exit 2），其他都只警告
+- `human-gate.cjs` 是唯一**阻塞**的钩子（exit 2），其他都只警告
 - 钩子遵循 Claude Code 钩子协议：stdin 接收 JSON，stdout 输出原始数据，stderr 输出警告
 - 钩子出错时**放行**（不会因钩子 bug 阻塞正常工作）
 
@@ -313,7 +313,7 @@ apply:
                        │      git commit 时            │
                        │           │                   │
                        │           ▼                   │
-                       │    human-gate.js              │
+                       │    human-gate.cjs             │
                        │    读取 proposal.md ──────────┤
                        │    检查标记是否存在            │
                        │           │                   │

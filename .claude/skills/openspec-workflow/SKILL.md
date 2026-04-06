@@ -118,4 +118,4 @@ apply（实现）             ← 需要人工验收
 - 技术评审标记写入 `design.md`
 - 验收标记写入 `proposal.md`
 
-这些标记被 Forge 的 `human-gate.js` 钩子读取。**缺少标记时提交会被阻塞。**
+这些标记被 Forge 的 `human-gate.cjs` 钩子读取。**缺少标记时提交会被阻塞。**

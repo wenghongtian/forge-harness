@@ -42,10 +42,10 @@ project-root/
 技术栈定义在 `stacks/*.yaml` 中。项目初始化时选定技术栈，存储在 `openspec/config.yaml` 的 `context` 字段中。
 
 ### 可用预设
-- `react-node` — React + TypeScript / Node.js + Express + PostgreSQL
+- `react-node` — React + TypeScript + Vite 8 + shadcn / NestJS + TypeORM + PostgreSQL
 - `vue-go` — Vue 3 + TypeScript / Go + Gin + PostgreSQL
 - `nextjs-python` — Next.js 14+ / Python + FastAPI + PostgreSQL
-- `react-native-node` — React Native + Expo / Node.js + Express + PostgreSQL
+- `react-native-node` — React Native + Expo / NestJS + PostgreSQL
 - `custom` — 自定义技术栈（使用 `custom.yaml.template`）
 
 ### 技术栈文件结构
@@ -54,20 +54,25 @@ name: 技术栈名称
 frontend:
   framework: React
   language: TypeScript
-  build_tool: Vite
-  ui_library: Tailwind CSS + shadcn/ui
+  build_tool: Vite 8
+  ui_library: Tailwind CSS 4 + shadcn/ui
+  icon_library: Remixicon
   state_management: Zustand
+  http_client: Axios
+  api_codegen: "@umijs/openapi"
   testing: Vitest + Testing Library
 backend:
-  framework: Express
+  framework: NestJS
   language: TypeScript
   runtime: Node.js
   database: PostgreSQL
-  orm: Prisma
-  testing: Vitest
+  orm: TypeORM
+  validation: class-validator + class-transformer
+  api_docs: Swagger (@nestjs/swagger)
+  testing: Jest
   api_style: RESTful
 shared:
-  api_contract: OpenAPI 3.1
+  api_contract: OpenAPI 3.1（NestJS Swagger 生成，前端 @umijs/openapi 消费）
   monorepo: false
   package_manager: pnpm
 ```
@@ -279,7 +284,7 @@ openspec new <变更名称>
 - 生产代码中不使用 `console.log`（使用结构化日志）
 - 每个 API 端点都有输入验证
 - 每个数据库查询都使用参数化输入
-- 错误响应遵循统一格式：`{ error: { code, message, details? } }`
+- 错误响应遵循统一格式：`{ code: "ERROR_CODE", data: null, errorMsg: "描述" }`
 
 ---
 

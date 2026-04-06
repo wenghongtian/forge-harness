@@ -20,7 +20,7 @@ backend:
   language: TypeScript
   runtime: Node.js
   database: PostgreSQL
-  orm: Prisma
+  orm: TypeORM
   validation: class-validator + class-transformer
   api_docs: Swagger (@nestjs/swagger)
   auth: @nestjs/passport + @nestjs/jwt

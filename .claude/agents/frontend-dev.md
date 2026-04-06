@@ -56,7 +56,7 @@ pnpm exec openspec instructions apply --change <变更名> --json
 
 1. 查看当前任务：`pnpm exec openspec instructions apply --change <变更名> --json`
 2. 实现功能/组件
-3. 启动前端开发服务器验证：`cd frontend && npm run dev`
-4. 运行测试：`cd frontend && npm test`
+3. 启动前端开发服务器验证：`cd frontend && pnpm dev`
+4. 运行测试：`cd frontend && pnpm test`
 5. 在 `tasks.md` 中标记 `[x]`
 6. 进入下一个任务

@@ -27,10 +27,10 @@ curl -fsSL https://raw.githubusercontent.com/wenghongtian/forge-harness/main/ins
 
 | 名称 | 前端 | 后端 |
 |------|------|------|
-| `react-node` | React + TypeScript + Vite + shadcn/ui | Node.js + Express + Prisma + PostgreSQL |
+| `react-node` | React + TypeScript + Vite 8 + TailwindCSS 4 + shadcn/ui | NestJS + TypeORM + PostgreSQL + Swagger |
 | `vue-go` | Vue 3 + TypeScript + Naive UI | Go + Gin + GORM + PostgreSQL |
 | `nextjs-python` | Next.js 14+ + shadcn/ui | Python + FastAPI + SQLAlchemy + PostgreSQL |
-| `react-native-node` | React Native + Expo + Tamagui | Node.js + Express + Prisma + PostgreSQL |
+| `react-native-node` | React Native + Expo + Tamagui | NestJS + TypeORM + PostgreSQL |
 
 ### 安装后的项目结构
 
@@ -150,7 +150,7 @@ Forge 在三个关键节点强制人工审批：
 <!-- FORGE_GATE:DESIGN_REVIEW:APPROVED:2024-01-15 -->
 ```
 
-**未通过审批的变更无法提交代码**（`human-gate.js` 钩子会阻塞 `git commit`）。
+**未通过审批的变更无法提交代码**（`human-gate.cjs` 钩子会阻塞 `git commit`）。
 
 ## OpenSpec 集成
 
@@ -181,10 +181,10 @@ pnpm exec openspec archive <变更名>
 
 | 钩子 | 触发时机 | 行为 |
 |------|----------|------|
-| `human-gate.js` | `git commit` | 缺少审批标记时**阻塞提交** |
-| `doc-sync.js` | 编辑/创建文件 | 无 OpenSpec 变更追踪时**警告** |
-| `branch-doc-check.js` | 切换分支 | 无对应变更文件夹时**提醒** |
-| `pre-commit-quality.js` | `git commit` | console.log、debugger、.env 文件**警告** |
+| `human-gate.cjs` | `git commit` | 缺少审批标记时**阻塞提交** |
+| `doc-sync.cjs` | 编辑/创建文件 | 无 OpenSpec 变更追踪时**警告** |
+| `branch-doc-check.cjs` | 切换分支 | 无对应变更文件夹时**提醒** |
+| `pre-commit-quality.cjs` | `git commit` | console.log、debugger、.env 文件**警告** |
 
 ## 智能体
 

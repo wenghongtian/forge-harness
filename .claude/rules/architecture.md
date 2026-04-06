@@ -16,6 +16,7 @@
 - 前端通过 `@umijs/openapi` 读取后端 Swagger JSON 自动生成类型和接口调用代码
 - **禁止手动编写 RESTful 接口请求代码** — 所有 API 调用必须由 @umijs/openapi 生成
 - 契约变更流程：后端修改 DTO/Controller 装饰器 → 重启后端 → 前端执行 `pnpm openapi` 重新生成
+- 不需要单独的 `contracts/` 目录 — API 契约由 NestJS Swagger 自动生成
 - 对契约的破坏性变更需要创建新的 OpenSpec 变更提案
 
 ## 数据库设计
@@ -69,7 +70,7 @@ backend/
 │   │       ├── dto/          # 请求/响应 DTO（Swagger 装饰器在此）
 │   │       └── entities/     # TypeORM 实体
 │   └── config/               # 配置模块
-├── prisma/（或 migrations/）
+├── migrations/               # TypeORM 数据库迁移
 ├── test/
 └── package.json
 ```

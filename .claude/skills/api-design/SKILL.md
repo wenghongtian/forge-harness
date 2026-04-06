@@ -29,37 +29,36 @@ DELETE /api/v1/users/:id      # 删除
 ### 成功（单个资源）
 ```json
 {
+  "code": "",
   "data": {
     "id": "uuid",
     "name": "...",
     "createdAt": "2024-01-01T00:00:00Z"
-  }
+  },
+  "errorMsg": ""
 }
 ```
 
 ### 成功（列表）
 ```json
 {
-  "data": [...],
-  "meta": {
+  "code": "",
+  "data": {
+    "list": [...],
     "total": 100,
     "page": 1,
-    "limit": 20,
-    "hasMore": true
-  }
+    "pageSize": 20
+  },
+  "errorMsg": ""
 }
 ```
 
 ### 错误
 ```json
 {
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "邮箱格式无效",
-    "details": [
-      { "field": "email", "message": "请输入有效的邮箱地址" }
-    ]
-  }
+  "code": "VALIDATION_ERROR",
+  "data": null,
+  "errorMsg": "邮箱格式无效"
 }
 ```
 

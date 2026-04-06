@@ -229,7 +229,7 @@ echo "  已安装 OpenSpec + forge-lifecycle schema"
 
 echo "[3/4] 创建项目结构..."
 
-mkdir -p contracts/api docs
+mkdir -p docs
 
 if [ ! -f ".gitignore" ]; then
   cat > .gitignore << 'EOF'
@@ -279,8 +279,8 @@ ${STACK_NAME:-技术栈未指定，使用 /genesis 时会引导选择。}
 
 ## 测试
 \`\`\`bash
-cd frontend && npm test
-cd backend && npm test
+cd frontend && pnpm test
+cd backend && pnpm test
 \`\`\`
 CLAUDE_EOF
 fi
