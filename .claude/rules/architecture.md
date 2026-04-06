@@ -1,15 +1,21 @@
 # 架构规则
 
+## 包管理
+- 所有项目统一使用 **pnpm** 作为包管理器
+- 禁止使用 npm 或 yarn
+- 安装依赖：`pnpm add`，开发依赖：`pnpm add -D`
+- 脚本执行：`pnpm run` 或 `pnpm exec`
+
 ## 前后端分离
 - 前端和后端始终是独立的应用，位于独立目录
-- 它们仅通过 `contracts/` 中定义的 API 契约通信
+- 它们仅通过 API 契约通信（由后端 Swagger 自动生成，前端 @umijs/openapi 消费）
 - 前后端之间不共享运行时代码
-- 共享的类型/接口可以提取到 `contracts/types/` 目录
 
-## API 契约优先
-- 在实现端点之前，先定义 API 契约（OpenAPI/GraphQL schema）
-- 将契约存储在 `contracts/api/`
-- 前后端都必须遵守契约
+## API 契约：Swagger 驱动
+- 后端通过 NestJS @nestjs/swagger 装饰器自动生成 OpenAPI 文档
+- 前端通过 `@umijs/openapi` 读取后端 Swagger JSON 自动生成类型和接口调用代码
+- **禁止手动编写 RESTful 接口请求代码** — 所有 API 调用必须由 @umijs/openapi 生成
+- 契约变更流程：后端修改 DTO/Controller 装饰器 → 重启后端 → 前端执行 `pnpm openapi` 重新生成
 - 对契约的破坏性变更需要创建新的 OpenSpec 变更提案
 
 ## 数据库设计
@@ -43,21 +49,29 @@ frontend/
 └── package.json
 ```
 
-### 后端
+### 后端（NestJS）
 ```
 backend/
 ├── src/
-│   ├── app/              # 应用入口、服务器配置
-│   ├── routes/           # 路由定义
-│   ├── controllers/      # 请求处理器
-│   ├── services/         # 业务逻辑
-│   ├── models/           # 数据模型 / ORM 实体
-│   ├── middleware/        # 中间件
-│   ├── validators/       # 输入验证模式
-│   ├── lib/              # 工具函数
-│   └── types/            # 类型定义
+│   ├── app.module.ts         # 根模块
+│   ├── main.ts               # 入口（Swagger 配置在此）
+│   ├── common/               # 共享装饰器、管道、过滤器、拦截器
+│   │   ├── decorators/
+│   │   ├── filters/
+│   │   ├── guards/
+│   │   ├── interceptors/
+│   │   └── pipes/
+│   ├── modules/              # 业务模块（按领域划分）
+│   │   └── [模块]/
+│   │       ├── [模块].module.ts
+│   │       ├── [模块].controller.ts
+│   │       ├── [模块].service.ts
+│   │       ├── dto/          # 请求/响应 DTO（Swagger 装饰器在此）
+│   │       └── entities/     # TypeORM 实体
+│   └── config/               # 配置模块
 ├── prisma/（或 migrations/）
-└── package.json（或 go.mod、requirements.txt）
+├── test/
+└── package.json
 ```
 
 ## 错误处理

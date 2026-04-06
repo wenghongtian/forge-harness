@@ -1,33 +1,36 @@
-name: react-node
-description: React + TypeScript 前端搭配 Node.js + Express 后端
+name: react-nestjs
+description: React + TypeScript 前端搭配 NestJS + PostgreSQL 后端
 
 frontend:
   framework: React
   language: TypeScript
-  build_tool: Vite
-  ui_library: Tailwind CSS + shadcn/ui
+  build_tool: Vite 8
+  ui_library: Tailwind CSS 4 + shadcn/ui
+  icon_library: Remixicon (remix-icon)
   state_management: Zustand
-  data_fetching: TanStack Query
-  routing: React Router v6
+  http_client: Axios
+  api_codegen: "@umijs/openapi（基于 Swagger/OpenAPI 自动生成，禁止手动编写 RESTful 接口调用代码）"
+  routing: React Router
   form_handling: React Hook Form + Zod
   testing: Vitest + Testing Library
   linting: ESLint + Prettier
 
 backend:
-  framework: Express
+  framework: NestJS
   language: TypeScript
   runtime: Node.js
   database: PostgreSQL
   orm: Prisma
-  validation: Zod
-  auth: jsonwebtoken + bcrypt
-  logging: pino
-  testing: Vitest + Supertest
+  validation: class-validator + class-transformer
+  api_docs: Swagger (@nestjs/swagger)
+  auth: @nestjs/passport + @nestjs/jwt
+  logging: NestJS built-in Logger
+  testing: Jest (NestJS 默认)
   linting: ESLint + Prettier
   api_style: RESTful
 
 shared:
-  api_contract: OpenAPI 3.1
+  api_contract: OpenAPI 3.1（由 NestJS Swagger 自动生成，前端通过 @umijs/openapi 消费）
   monorepo: false
   package_manager: pnpm
   node_version: "20"
@@ -37,22 +40,28 @@ init_commands:
     pnpm create vite frontend --template react-ts
     cd frontend && pnpm install
     pnpm add tailwindcss @tailwindcss/vite
-    pnpm add zustand @tanstack/react-query react-router-dom
+    pnpm add zustand react-router-dom axios
     pnpm add react-hook-form @hookform/resolvers zod
+    pnpm add remixicon
+    pnpm add -D @umijs/openapi
     pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom
     npx shadcn@latest init -y
   backend: |
-    mkdir -p backend/src && cd backend
-    pnpm init
-    pnpm add express cors helmet morgan
-    pnpm add prisma @prisma/client zod jsonwebtoken bcrypt pino
-    pnpm add -D typescript @types/node @types/express @types/cors @types/jsonwebtoken @types/bcrypt
-    pnpm add -D vitest supertest @types/supertest tsx
-    npx prisma init
-    npx tsc --init
+    npx @nestjs/cli new backend --package-manager pnpm --skip-git
+    cd backend
+    pnpm add @nestjs/swagger @nestjs/config
+    pnpm add @nestjs/typeorm typeorm pg
+    pnpm add class-validator class-transformer
+    pnpm add @nestjs/passport @nestjs/jwt passport passport-jwt
+    pnpm add -D @types/passport-jwt
 
 conventions:
   file_naming: camelCase 文件名, PascalCase 组件名
   component_style: 函数式组件 + hooks
   api_prefix: /api/v1
-  test_suffix: .test.ts / .test.tsx
+  test_suffix: .test.ts / .test.tsx / .spec.ts
+  api_generation: |
+    后端通过 @nestjs/swagger 装饰器自动生成 OpenAPI 文档。
+    前端通过 @umijs/openapi 读取后端 Swagger JSON 自动生成 API 调用代码。
+    禁止手动编写 RESTful 接口请求代码。
+    流程：后端定义 DTO + Swagger 装饰器 → 启动后端 → 前端执行 pnpm openapi 生成接口代码。
