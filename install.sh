@@ -131,8 +131,8 @@ fi
 
 # 钩子
 mkdir -p .claude/hooks
-if ls "$FORGE_DIR/.claude/hooks/"*.js &>/dev/null; then
-  for f in "$FORGE_DIR/.claude/hooks/"*.js; do cp "$f" .claude/hooks/; done
+if ls "$FORGE_DIR/.claude/hooks/"*.cjs &>/dev/null; then
+  for f in "$FORGE_DIR/.claude/hooks/"*.cjs; do cp "$f" .claude/hooks/; done
 fi
 
 # 技术栈预设
@@ -153,9 +153,9 @@ if [ ! -f ".claude/settings.json" ]; then
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "node .claude/hooks/human-gate.js" },
-          { "type": "command", "command": "node .claude/hooks/branch-doc-check.js" },
-          { "type": "command", "command": "node .claude/hooks/pre-commit-quality.js" }
+          { "type": "command", "command": "node .claude/hooks/human-gate.cjs" },
+          { "type": "command", "command": "node .claude/hooks/branch-doc-check.cjs" },
+          { "type": "command", "command": "node .claude/hooks/pre-commit-quality.cjs" }
         ]
       }
     ],
@@ -163,7 +163,7 @@ if [ ! -f ".claude/settings.json" ]; then
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "node .claude/hooks/doc-sync.js" }
+          { "type": "command", "command": "node .claude/hooks/doc-sync.cjs" }
         ]
       }
     ]
