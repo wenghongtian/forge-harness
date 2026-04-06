@@ -75,7 +75,7 @@ backend/
 ```
 
 ## 错误处理
-- 后端：所有错误返回统一的 JSON 格式 `{ error: { code: string, message: string, details?: any } }`
+- 后端：所有接口统一返回 `{ code: string, data: any, errorMsg: string }`，异常时 code 和 errorMsg 有值，data 为 null
 - 前端：全局错误边界 + 按路由的错误处理
 - API 错误：正确使用标准 HTTP 状态码（400 输入错误、401 认证、403 授权、404 未找到、422 验证、500 服务器错误）
 

@@ -17,28 +17,46 @@
 
 ## 请求/响应规范
 
-### 成功响应
+所有接口统一返回以下格式：
 ```json
 {
-  "data": { ... },
-  "meta": {
-    "page": 1,
+  "code": "",
+  "data": null,
+  "errorMsg": ""
+}
+```
+
+### 成功响应
+`code` 和 `errorMsg` 为空字符串，`data` 为实际数据：
+```json
+{
+  "code": "",
+  "data": { "id": 1, "name": "example" },
+  "errorMsg": ""
+}
+```
+
+分页数据放在 `data` 内部：
+```json
+{
+  "code": "",
+  "data": {
+    "list": [...],
     "total": 100,
-    "hasMore": true
-  }
+    "page": 1,
+    "pageSize": 20
+  },
+  "errorMsg": ""
 }
 ```
 
 ### 错误响应
+仅异常时 `code` 和 `errorMsg` 有值，`data` 为 null：
 ```json
 {
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "人类可读的描述",
-    "details": [
-      { "field": "email", "message": "邮箱格式无效" }
-    ]
-  }
+  "code": "VALIDATION_ERROR",
+  "data": null,
+  "errorMsg": "邮箱格式无效"
 }
 ```
 
